@@ -1,0 +1,29 @@
+function TimeStamp_Chenn() {
+  var startTime= (new Date()).getTime();
+  var doc = SpreadsheetApp.openById("1zxi73wm7r9usNeGrsOfZNayP5_TWl7AJeNhcebsW5-E");
+  sheet = doc.getSheetByName("Query Results")
+  target_sheet = doc.getSheetByName('Query Results');
+  columns = ['AAK', 'AAL']
+  var list = []
+  var j=0
+  for(j=0; j<columns.length; j++){
+  list = []
+  var range = columns[j]+ '2:'+ columns[j]+'1000';
+  Logger.log(range);
+  var col1 = sheet.getRange(range).getValues();
+    for(i=0;i<col1.length; i++){
+      if (col1[i][0]){
+          var val = col1[i][0]/(1000000*3600);
+         list.push([val]);
+       }else{
+         list.push([0]);
+       }
+    }
+    
+    var target_column = target_sheet.getRange(range)
+    target_column.setValues(list);
+    Logger.log(list)
+  }
+  
+
+}
